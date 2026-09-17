@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  form {
+    width: 600px;
+    margin: 30px auto;
+  }
+
+  .box {
+    float: left;
+    width: 48%;
+    margin-right: 2%;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  textarea {
+    width: 100%;
+    margin-top: 15px;
+  }
+</style>
+</head>
+<body>
+
+<form>
+  <h2>Employee Evaluation</h2>
+
+  <div class="box">
+    Employee Name:
+    <input type="text">
+  </div>
+
+  <div class="box">
+    Department:
+    <select>
+      <option>IT</option>
+      <option>HR</option>
+    </select>
+  </div>
+
+  <div class="clear"></div>
+
+  Comments:
+  <textarea rows="5"></textarea>
+
+  <br><br>
+  <button>Submit</button>
+</form>
+
+</body>
+</html>

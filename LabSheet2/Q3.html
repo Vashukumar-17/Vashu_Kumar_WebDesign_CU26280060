@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Frames</title></head>
+
+<frameset rows="80px,*">
+  <frame src="header.html">
+
+  <frameset cols="200px,*">
+    <frame src="navigation.html">
+    <frame src="content.html" name="content">
+  </frameset>
+</frameset>
+</html>
+
+<!-- header.html -->
+<h1>My Website</h1>
+
+<!-- navigation.html -->
+<a href="content.html" target="content">Home</a><br>
+<a href="about.html" target="content">About</a><br>
+<a href="contact.html" target="content">Contact</a>
+
+<!-- content.html -->
+<h2>Welcome</h2>
+<p>This is the content area.</p>

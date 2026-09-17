@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  label {
+    display: block;
+    margin: 15px;
+    position: relative;
+    padding-left: 30px;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  label span::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid gray;
+    border-radius: 4px;
+  }
+
+  input:checked ~ span::after {
+    content: "✓";
+    position: absolute;
+    left: 3px;
+  }
+
+  .radio span::before {
+    border-radius: 50%;
+  }
+
+  .radio input:checked ~ span::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    left: 6px;
+    top: 6px;
+  }
+</style>
+</head>
+<body>
+
+<h3>Checkbox</h3>
+<label>
+  <input type="checkbox">
+  <span>HTML</span>
+</label>
+
+<label>
+  <input type="checkbox">
+  <span>CSS</span>
+</label>
+
+<h3>Radio Button</h3>
+<label class="radio">
+  <input type="radio" name="level">
+  <span>Beginner</span>
+</label>
+
+<label class="radio">
+  <input type="radio" name="level">
+  <span>Advanced</span>
+</label>
+
+</body>
+</html>

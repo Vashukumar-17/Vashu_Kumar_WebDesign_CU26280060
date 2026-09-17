@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .contact {
+    display: flex;
+    gap: 30px;
+    width: 800px;
+    max-width: 90%;
+    margin: 30px auto;
+  }
+
+  .form, .location {
+    flex: 1;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 600px) {
+    .contact {
+      flex-direction: column;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="contact">
+
+  <div class="form">
+    <h2>Contact Us</h2>
+
+    <input type="text" placeholder="Name">
+    <input type="email" placeholder="Email">
+    <textarea rows="5" placeholder="Message"></textarea>
+
+    <button>Send</button>
+  </div>
+
+  <div class="location">
+    <h2>Our Location</h2>
+    <p>ABC Company</p>
+    <p>Main Road, Dehradun</p>
+    <p>Phone: 9876543210</p>
+    <p>Email: info@example.com</p>
+  </div>
+
+</div>
+
+</body>
+</html>

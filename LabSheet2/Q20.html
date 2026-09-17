@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .step {
+    display: none;
+    width: 350px;
+    margin: 30px auto;
+  }
+
+  .step.active {
+    display: block;
+  }
+
+  input {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 10px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="step active">
+  <h2>Step 1</h2>
+  <input type="text" placeholder="Your Name">
+  <button onclick="showStep(1)">Next</button>
+</div>
+
+<div class="step">
+  <h2>Step 2</h2>
+  <input type="email" placeholder="Your Email">
+  <button onclick="showStep(0)">Back</button>
+  <button onclick="showStep(2)">Next</button>
+</div>
+
+<div class="step">
+  <h2>Step 3</h2>
+  <p>Registration Complete!</p>
+  <button onclick="showStep(1)">Back</button>
+</div>
+
+<script>
+  var steps = document.getElementsByClassName("step");
+
+  function showStep(number) {
+    for (var i = 0; i < steps.length; i++) {
+      steps[i].classList.remove("active");
+    }
+
+    steps[number].classList.add("active");
+  }
+</script>
+
+</body>
+</html>

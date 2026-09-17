@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  form {
+    width: 600px;
+    max-width: 90%;
+    margin: 30px auto;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px;
+    box-sizing: border-box;
+  }
+
+  button {
+    padding: 10px;
+  }
+
+  /* For mobile screens */
+  @media (max-width: 600px) {
+    form {
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<form>
+  <h2>Payment</h2>
+
+  Cardholder Name:
+  <input type="text">
+
+  Card Number:
+  <input type="text">
+
+  Expiry Date:
+  <input type="text" placeholder="MM/YY">
+
+  CVV:
+  <input type="password">
+
+  <button>Pay Now</button>
+</form>
+
+</body>
+</html>
+

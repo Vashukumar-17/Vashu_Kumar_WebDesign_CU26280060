@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Unit Selector</h2>
+
+<label>
+  Distance:
+  <input id="range" type="range" min="0" max="100" value="50">
+  <span id="value">50 km</span>
+</label>
+
+<br><br>
+
+<label>
+  Quantity:
+  <input type="number" min="1" value="1">
+  units
+</label>
+
+<script>
+  var range = document.getElementById("range");
+  var value = document.getElementById("value");
+
+  range.oninput = function() {
+    value.innerHTML = range.value + " km";
+  };
+</script>
+
+</body>
+</html>

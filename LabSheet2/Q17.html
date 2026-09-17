@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="/submit" method="post">
+
+  Name:
+  <input type="text" name="name">
+
+  <!-- Hidden data -->
+  <input type="hidden" name="user_id" value="101">
+  <input type="hidden" name="session_id" value="ABC123">
+
+  <button type="submit">Submit</button>
+
+</form>
+
+<!-- Important:
+A hidden input is not visible on the page.
+It is NOT a secure place for passwords or secret information.
+Sensitive session information should be handled by the server.
+-->
+
+</body>
+</html>
