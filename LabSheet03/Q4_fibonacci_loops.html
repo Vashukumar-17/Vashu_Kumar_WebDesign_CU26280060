@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q4</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <label>Number of terms (n): <input type="number" id="n" min="1" max="90" value="10"></label>
+  <button id="go">Generate</button>
+  <div class="out" id="out"></div>
+  <script>
+    function fibFor(n) {
+      const s = []; let a = 0, b = 1;
+      for (let i = 0; i < n; i++) { s.push(a);[a, b] = [b, a + b]; }
+      return s;
+    }
+    function fibWhile(n) {
+      const s = []; let a = 0, b = 1, i = 0;
+      while (i < n) { s.push(a); const next = a + b; a = b; b = next; i++; }
+      return s;
+    }
+    
+    function fibDoWhile(n) {
+      const s = []; let a = 0, b = 1, i = 0;
+      do { s.push(a); const next = a + b; a = b; b = next; i++; } while (i < n);
+      return s;
+    }
+
+    document.getElementById("go").addEventListener("click", function () {
+      const n = Number(document.getElementById("n").value);
+      const out = document.getElementById("out");
+      if (!Number.isInteger(n) || n < 1 || n > 90) {
+        out.innerHTML = '<span class="bad">Enter a whole number between 1 and 90.</span>';
+        return;
+      }
+      out.textContent =
+        `for      : ${fibFor(n).join(", ")}\n\n` +
+        `while    : ${fibWhile(n).join(", ")}\n\n` +
+        `do-while : ${fibDoWhile(n).join(", ")}`;
+    });
+  </script>
+</body>
+
+</html>

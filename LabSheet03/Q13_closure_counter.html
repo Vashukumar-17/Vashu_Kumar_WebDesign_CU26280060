@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q13</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <div style="font-size:2.5rem" id="value">0</div>
+  <button id="inc">Increment (+)</button>
+  <button id="dec">Decrement (-)</button>
+  <button id="rst">Reset</button>
+  <div class="out" id="out"></div>
+  <script>
+  
+    function createCounter(start) {
+      let count = start;
+      return {
+        increment: function () { count++; return count; },
+        decrement: function () { count--; return count; },
+        reset: function () { count = start; return count; },
+        value: function () { return count; }
+      };
+    }
+
+    const counter = createCounter(0);
+    const valueEl = document.getElementById("value");
+    const out = document.getElementById("out");
+    const refresh = () => {
+      valueEl.textContent = counter.value();
+      out.textContent = `counter.value() = ${counter.value()}\ncounter.count (direct access) = ${counter.count}  <- undefined, it is private`;
+    };
+
+    document.getElementById("inc").addEventListener("click", () => { counter.increment(); refresh(); });
+    document.getElementById("dec").addEventListener("click", () => { counter.decrement(); refresh(); });
+    document.getElementById("rst").addEventListener("click", () => { counter.reset(); refresh(); });
+
+    const another = createCounter(100);
+    another.increment();
+    console.log("Second counter (independent):", another.value());
+    refresh();
+  </script>
+</body>
+
+</html>

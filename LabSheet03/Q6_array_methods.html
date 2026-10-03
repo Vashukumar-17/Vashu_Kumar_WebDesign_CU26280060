@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q6</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body></body>
+  <input type="number" id="val" placeholder="Enter a number">
+  <button id="push">push (add)</button>
+  <button id="pop">pop (remove last)</button>
+  <button id="sort">sort ascending</button>
+  <button id="map">map (double)</button>
+  <button id="filter">filter (even only)</button>
+  <button id="reset">reset</button>
+  <div class="out" id="out"></div>
+  <script>
+    let numbers = [5, 12, 3, 8];
+    const out = document.getElementById("out");
+    const show = (note) => { out.textContent = `${note}\nArray: [ ${numbers.join(", ")} ]`; };
+
+    document.getElementById("push").addEventListener("click", () => {
+      const raw = document.getElementById("val").value;
+      if (raw === "") { show("Type a number first."); return; }
+      numbers.push(Number(raw));                              
+      show(`push(${raw})`);
+    });
+    document.getElementById("pop").addEventListener("click", () => {
+      const removed = numbers.pop();                           
+      show(removed === undefined ? "Array is empty." : `pop() removed ${removed}`);
+    });
+    document.getElementById("sort").addEventListener("click", () => {
+      numbers.sort((a, b) => a - b);                           
+      show("sort((a, b) => a - b)");
+    });
+    document.getElementById("map").addEventListener("click", () => {
+      numbers = numbers.map(n => n * 2);                       
+      show("map(n => n * 2)");
+    });
+    document.getElementById("filter").addEventListener("click", () => {
+      numbers = numbers.filter(n => n % 2 === 0);              
+      show("filter(n => n % 2 === 0)");
+    });
+    document.getElementById("reset").addEventListener("click", () => { numbers = [5, 12, 3, 8]; show("Reset"); });
+    show("Initial array");
+  </script>
+</body>
+
+</html>

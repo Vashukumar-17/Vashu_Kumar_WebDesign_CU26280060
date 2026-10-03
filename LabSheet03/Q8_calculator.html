@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q8</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <style>
+    #calc {
+      width: 260px;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+      padding: 10px;
+      background: #fafafa
+    }
+
+    #display {
+      width: 100%;
+      box-sizing: border-box;
+      text-align: right;
+      font-size: 1.6rem;
+      margin-bottom: 8px
+    }
+
+    #keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px
+    }
+
+    #keys button {
+      padding: 14px 0;
+      font-size: 1.1rem
+    }
+  </style>
+  <div id="calc">
+    <input id="display" value="0" readonly>
+    <div id="keys"></div>
+  </div>
+  <script>
+    const layout = ["7", "8", "9", "÷", "4", "5", "6", "×", "1", "2", "3", "-", "0", ".", "=", "+", "C"];
+    const keys = document.getElementById("keys");
+    const display = document.getElementById("display");
+    let current = "0", previous = null, operator = null, resetNext = false;
+
+    layout.forEach(label => {
+      const b = document.createElement("button");
+      b.textContent = label;
+      if (label === "C") b.style.gridColumn = "span 4";
+      b.addEventListener("click", () => press(label));
+      keys.appendChild(b);
+    });
+
+    function compute(a, b, op) {
+      switch (op) {
+        case "+": return a + b;
+        case "-": return a - b;
+        case "×": return a * b;
+        case "÷": return b === 0 ? "Error" : a / b;
+      }
+    }
+
+    function press(label) {
+      if (label >= "0" && label <= "9" && label.length === 1 || label === ".") {
+        if (resetNext) { current = "0"; resetNext = false; }
+        if (label === "." && current.includes(".")) return;
+        current = (current === "0" && label !== ".") ? label : current + label;
+      } else if (label === "C") {
+        current = "0"; previous = null; operator = null;
+      } else if (label === "=") {
+        if (operator !== null && previous !== null) {
+          const r = compute(previous, Number(current), operator);
+          current = String(r === "Error" ? r : +r.toFixed(10));
+          previous = null; operator = null; resetNext = true;
+        }
+      } else {                                   // an operator button
+        if (current === "Error") return;
+        if (operator !== null && !resetNext) {   // chain: 2 + 3 + ...
+          const r = compute(previous, Number(current), operator);
+          current = String(r === "Error" ? r : +r.toFixed(10));
+        }
+        previous = Number(current);
+        operator = label; resetNext = true;
+      }
+      display.value = current;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q7</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <input id="name" placeholder="Name">
+  <input id="roll" type="number" placeholder="Roll no.">
+  <input id="marks" placeholder="Marks (comma separated)" size="24">
+  <button id="make">Create Student</button>
+  <div class="out" id="out"></div>
+  <script>
+    function Student(name, roll, marks) {
+      this.name = name;
+      this.roll = roll;
+      this.marks = marks;
+      this.getTotal = function () { return this.marks.reduce((s, m) => s + m, 0); };
+      this.getAverage = function () { return this.getTotal() / this.marks.length; };
+      this.getResult = function () { return this.getAverage() >= 40 ? "Pass" : "Fail"; };
+      this.introduce = function () {
+        return `Hi, I am ${this.name} (Roll ${this.roll}).`;   
+      };
+    }
+
+    document.getElementById("make").addEventListener("click", function () {
+      const name = document.getElementById("name").value.trim();
+      const roll = Number(document.getElementById("roll").value);
+      const marks = document.getElementById("marks").value.split(",")
+        .map(m => m.trim()).filter(m => m !== "").map(Number);
+      const out = document.getElementById("out");
+      if (!name || !roll || marks.length === 0 || marks.some(isNaN)) {
+        out.innerHTML = '<span class="bad">Fill all fields (marks as numbers separated by commas).</span>';
+        return;
+      }
+      const s = new Student(name, roll, marks);
+      const other = new Student("Demo", 0, [100]);
+      out.textContent =
+        `${s.introduce()}\n` +
+        `Marks   : ${s.marks.join(", ")}\n` +
+        `Total   : ${s.getTotal()}\n` +
+        `Average : ${s.getAverage().toFixed(2)}\n` +
+        `Result  : ${s.getResult()}\n\n` +
+        `Another object, same method, different this:\n${other.introduce()}`;
+    });
+  </script>
+</body>
+
+</html>

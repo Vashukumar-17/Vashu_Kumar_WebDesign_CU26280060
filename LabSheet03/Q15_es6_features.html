@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q15</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <label>Your name: <input id="name" value="Riya"></label>
+  <label>Age: <input id="age" type="number" value="21" style="width:70px"></label>
+  <button id="go">Run Demo</button>
+  <div class="out" id="out"></div>
+  <script>
+
+    const square = n => n * n;                      
+    const add = (a, b) => a + b;                     
+    const evens = [1, 2, 3, 4, 5, 6].filter(n => n % 2 === 0);
+
+    const showPerson = ({ name, age, city = "Roorkee" }) => ({ name, age, city });
+    const [first, second, ...rest] = [10, 20, 30, 40, 50];
+
+    document.getElementById("go").addEventListener("click", function () {
+      const name = document.getElementById("name").value || "Student";
+      const age = Number(document.getElementById("age").value);
+      const person = { name, age };
+      const { name: n, age: a, city } = showPerson(person);  
+      let x = 1, y = 2;
+      [x, y] = [y, x];                                       
+
+      const text = `Arrow functions
+  square(5) = ${square(5)}, add(3, 4) = ${add(3, 4)}, evens = [${evens}]
+
+Object destructuring
+  ${n} is ${a} years old and lives in ${city} (default value)
+
+Array destructuring
+  first = ${first}, second = ${second}, rest = [${rest}]
+
+Swap using destructuring
+  x = ${x}, y = ${y}
+
+Template literal expression
+  Next year ${n} will be ${a + 1}.`;
+      document.getElementById("out").textContent = text;
+      console.log(text);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q20</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Q20: Dynamic Table Generator</h2>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 12px
+    }
+
+    th,
+    td {
+      border: 1px solid #666;
+      padding: 6px 14px;
+      text-align: center
+    }
+
+    th {
+      background: #264653;
+      color: #fff
+    }
+
+    tr:nth-child(even) td {
+      background: #eef2f4
+    }
+  </style>
+  <label>Rows: <input type="number" id="rows" min="1" max="20" value="4" style="width:70px"></label>
+  <label>Columns: <input type="number" id="cols" min="1" max="12" value="4" style="width:70px"></label>
+  <button id="go">Generate Table</button>
+  <div id="msg" class="bad"></div>
+  <div id="holder"></div>
+  <script>
+    document.getElementById("go").addEventListener("click", function () {
+      const rows = Number(document.getElementById("rows").value);
+      const cols = Number(document.getElementById("cols").value);
+      const msg = document.getElementById("msg");
+      const holder = document.getElementById("holder");
+      holder.textContent = ""; msg.textContent = "";
+      if (!Number.isInteger(rows) || !Number.isInteger(cols) || rows < 1 || cols < 1 || rows > 20 || cols > 12) {
+        msg.textContent = "Enter rows (1-20) and columns (1-12) as whole numbers.";
+        return;
+      }
+      const table = document.createElement("table");
+      const head = table.insertRow();
+      for (let c = 0; c <= cols; c++) {                     
+        const th = document.createElement("th");
+        th.textContent = c === 0 ? "×" : c;
+        head.appendChild(th);
+      }
+      for (let r = 1; r <= rows; r++) {                     
+        const tr = table.insertRow();
+        const rowHead = document.createElement("th");
+        rowHead.textContent = r;
+        tr.appendChild(rowHead);
+        for (let c = 1; c <= cols; c++) tr.insertCell().textContent = r * c;
+      }
+      holder.appendChild(table);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q21</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <button id="run1">Demo 1: Execution order</button>
+  <button id="run2">Demo 2: Callback after delay</button>
+  <button id="run3">Demo 3: Chained callbacks</button>
+  <div class="out" id="out">Click a demo button.</div>
+  <script>
+    const out = document.getElementById("out");
+    const t0 = () => performance.now();
+    let start = 0;
+    function print(msg) { out.textContent += `[${Math.round(performance.now() - start)} ms] ${msg}\n`; }
+    function begin(title) { out.textContent = title + "\n"; start = performance.now(); }
+
+    document.getElementById("run1").addEventListener("click", function () {
+      begin("Demo 1 - order of execution");
+      print("1. Start (synchronous)");
+      setTimeout(() => print("3. Timeout callback (0 ms, but runs later)"), 0);
+      print("2. End (synchronous)");
+    });
+
+    function fetchUser(id, callback) {
+      print(`Fetching user ${id}...`);
+      setTimeout(() => callback({ id: id, name: "User" + id }), 1500);   // simulated server delay
+    }
+    document.getElementById("run2").addEventListener("click", function () {
+      begin("Demo 2 - callback function");
+      fetchUser(7, function (user) {
+        print(`Callback received: ${JSON.stringify(user)}`);
+      });
+      print("This line runs while we are still waiting");
+    });
+
+    document.getElementById("run3").addEventListener("click", function () {
+      begin("Demo 3 - chained callbacks");
+      setTimeout(() => {
+        print("Step 1 done (after 1 s)");
+        setTimeout(() => {
+          print("Step 2 done (after 1 more s)");
+          setTimeout(() => print("Step 3 done - all finished"), 1000);
+        }, 1000);
+      }, 1000);
+    });
+  </script>
+</body>
+
+</html>

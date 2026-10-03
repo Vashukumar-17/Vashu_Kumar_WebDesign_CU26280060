@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q5</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <label>Enter text: <input type="text" id="txt" size="30"></label>
+  <button id="go">Check</button>
+  <div class="out" id="out"></div>
+  <script>
+    function reverseString(str) {
+      let rev = "";
+      for (let i = str.length - 1; i >= 0; i--) rev += str[i];
+      return rev;
+    }
+
+    function isPalindrome(str) {
+      const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, "");
+      return cleaned === reverseString(cleaned);
+    }
+
+    document.getElementById("go").addEventListener("click", function () {
+      const text = document.getElementById("txt").value;
+      const out = document.getElementById("out");
+      if (text.trim() === "") { out.innerHTML = '<span class="bad">Please enter some text.</span>'; return; }
+      const verdict = isPalindrome(text)
+        ? '<span class="ok">is a palindrome ✔</span>'
+        : '<span class="bad">is NOT a palindrome ✘</span>';
+      out.textContent = "";
+      out.append(`Original: ${text}\nReversed: ${reverseString(text)}\n`);
+      const span = document.createElement("span");
+      span.innerHTML = verdict;
+      out.append(span);
+    });
+  </script>
+</body>
+
+</html>

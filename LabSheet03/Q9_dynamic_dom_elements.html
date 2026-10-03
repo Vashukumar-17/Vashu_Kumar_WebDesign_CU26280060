@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q9</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" id="txt" placeholder="Type some text" size="28">
+  <select id="tag">
+    <option value="p">Paragraph (p)</option>
+    <option value="h3">Heading (h3)</option>
+    <option value="li">List item (li)</option>
+    <option value="button">Button</option>
+  </select>
+  <button id="add">Add Element</button>
+  <button id="clear">Clear All</button>
+  <div class="out" id="container"></div>
+  <script>
+    const container = document.getElementById("container");
+
+    document.getElementById("add").addEventListener("click", function () {
+      const text = document.getElementById("txt").value.trim();
+      const tag = document.getElementById("tag").value;
+      if (text === "") { alert("Please type some text first."); return; }
+
+      const element = document.createElement(tag);   
+      element.textContent = text;                    
+      if (tag === "li") {                            
+        let list = container.querySelector("ul");
+        if (!list) { list = document.createElement("ul"); container.appendChild(list); }
+        list.appendChild(element);
+      } else {
+        container.appendChild(element);             
+      }
+      document.getElementById("txt").value = "";
+    });
+
+    document.getElementById("clear").addEventListener("click", () => { container.textContent = ""; });
+  </script>
+</body>
+
+</html>

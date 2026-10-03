@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q17</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <textarea id="para" rows="5" cols="60" placeholder="Type or paste a paragraph here"></textarea><br>
+  <button id="go">Count Vowels</button>
+  <div class="out" id="out"></div>
+  <script>
+    function countVowels(text) {
+      const counts = { a: 0, e: 0, i: 0, o: 0, u: 0 };
+      let total = 0;
+      for (const ch of text.toLowerCase()) {
+        if (ch in counts) { counts[ch]++; total++; }
+      }
+      return { counts, total };
+    }
+
+    document.getElementById("go").addEventListener("click", function () {
+      const text = document.getElementById("para").value;
+      const out = document.getElementById("out");
+      if (text.trim() === "") { out.innerHTML = '<span class="bad">Please enter a paragraph.</span>'; return; }
+      const { counts, total } = countVowels(text);
+      out.textContent = Object.keys(counts).map(v => `${v.toUpperCase()} : ${counts[v]}`).join("\n") + `\n-------\nTotal vowels: ${total}`;
+    });
+  </script>
+</body>
+
+</html>

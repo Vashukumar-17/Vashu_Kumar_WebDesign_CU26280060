@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q2</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <label>Enter an integer: <input type="number" id="num"></label>
+  <button id="check">Check</button>
+  <div class="out" id="result"></div>
+  <script>
+   
+    function classify(n) {
+      if (n < 2) return "neither";
+      for (let i = 2; i * i <= n; i++) {           
+        if (n % i === 0) return "composite";
+      }
+      return "prime";
+    }
+
+    document.getElementById("check").addEventListener("click", function () {
+      const raw = document.getElementById("num").value;
+      const n = Number(raw);
+      const div = document.getElementById("result");
+      if (raw === "" || !Number.isInteger(n)) {
+        div.innerHTML = '<span class="bad">Please enter a valid integer.</span>';
+        return;
+      }
+      const kind = classify(n);
+      if (kind === "neither") div.textContent = `${n} is neither prime nor composite.`;
+      else div.textContent = `${n} is a ${kind.toUpperCase()} number.`;
+    });
+  </script>
+</body>
+
+</html>

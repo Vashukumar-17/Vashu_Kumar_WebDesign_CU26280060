@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q1</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <p>Click the button. </p>
+  <button id="run">Start</button>
+  <div class="out" id="out">Results will appear here.</div>
+  <script>
+    function askNumber(message) {
+      const text = prompt(message);
+      if (text === null) return null;              // user pressed Cancel
+      const value = Number(text);
+      return (text.trim() === "" || isNaN(value)) ? NaN : value;
+    }
+
+    document.getElementById("run").addEventListener("click", function () {
+      const a = askNumber("Enter the first number:");
+      if (a === null) return;
+      const b = askNumber("Enter the second number:");
+      if (b === null) return;
+      if (isNaN(a) || isNaN(b)) { alert("Invalid input! Please enter valid numbers."); return; }
+
+      const lines = [
+        `${a} + ${b} = ${a + b}`,
+        `${a} - ${b} = ${a - b}`,
+        `${a} * ${b} = ${a * b}`,
+        b === 0 ? "Division and modulus by zero are not defined." : `${a} / ${b} = ${a / b}`,
+        b === 0 ? "" : `${a} % ${b} = ${a % b}`,
+        `${a} ** ${b} = ${a ** b}`
+      ].filter(line => line !== "");
+      const report = lines.join("\n");
+
+      console.log(report);                         
+      document.getElementById("out").textContent = report;
+      alert(report);                               
+    });
+  </script>
+</body>
+
+</html>

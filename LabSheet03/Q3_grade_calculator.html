@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q3</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <label>Marks (0-100): <input type="number" id="marks" min="0" max="100"></label>
+  <button id="go">Find Grade</button>
+  <div class="out" id="out"></div>
+  <script>
+    function gradeIfElse(m) {
+      if (m >= 90) return "A";
+      else if (m >= 75) return "B";
+      else if (m >= 60) return "C";
+      else if (m >= 50) return "D";
+      else return "F";
+    }
+
+    function gradeSwitch(m) {
+      switch (Math.floor(m / 10)) {
+        case 10:
+        case 9: return "A";
+        case 8:
+        case 7: return m >= 75 ? "B" : "C";
+        case 6: return "C";
+        case 5: return "D";
+        default: return "F";
+      }
+    }
+
+    document.getElementById("go").addEventListener("click", function () {
+      const raw = document.getElementById("marks").value;
+      const m = Number(raw);
+      const out = document.getElementById("out");
+      if (raw === "" || isNaN(m) || m < 0 || m > 100) {
+        out.innerHTML = '<span class="bad">Enter marks between 0 and 100.</span>';
+        return;
+      }
+      out.textContent = `Marks: ${m}\nGrade using if-else : ${gradeIfElse(m)}\nGrade using switch  : ${gradeSwitch(m)}`;
+    });
+  </script>
+</body>
+
+</html>

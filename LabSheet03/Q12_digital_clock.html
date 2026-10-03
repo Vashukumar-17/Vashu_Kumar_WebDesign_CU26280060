@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q12</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <div id="clock"
+    style="font-size:3rem;font-family:'Courier New',monospace;background:#111;color:#39ff14;padding:20px;border-radius:10px;text-align:center">
+    --:--:--</div>
+  <div id="date" style="text-align:center;margin:10px 0;font-size:1.1rem"></div>
+  <div style="text-align:center"><button id="toggle">Switch to 12-hour format</button></div>
+  <script>
+    let use24 = true;
+    const pad = n => String(n).padStart(2, "0");   // 5 -> "05"
+
+    function tick() {
+      const now = new Date();                      // current date and time
+      let h = now.getHours();
+      let suffix = "";
+      if (!use24) { suffix = h >= 12 ? " PM" : " AM"; h = h % 12 || 12; }
+      document.getElementById("clock").textContent =
+        `${pad(h)}:${pad(now.getMinutes())}:${pad(now.getSeconds())}${suffix}`;
+      document.getElementById("date").textContent = now.toDateString();
+    }
+
+    tick();                                        
+    setInterval(tick, 1000);                       
+
+    document.getElementById("toggle").addEventListener("click", function () {
+      use24 = !use24;
+      this.textContent = use24 ? "Switch to 12-hour format" : "Switch to 24-hour format";
+      tick();
+    });
+  </script>
+</body>
+
+</html>

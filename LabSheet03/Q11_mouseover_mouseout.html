@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q11</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box"
+    style="width:300px;height:160px;border:2px solid #333;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#ffffff;transition:background .25s;font-size:1.1rem;text-align:center">
+    Hover over me!
+  </div>
+  <div class="out" id="out">Waiting for mouse...</div>
+  <script>
+    const box = document.getElementById("box");
+    const out = document.getElementById("out");
+    const colours = ["#ffadad", "#ffd6a5", "#fdffb6", "#caffbf", "#9bf6ff", "#bdb2ff", "#ffc6ff"];
+
+    box.addEventListener("mouseover", function () {
+      const c = colours[Math.floor(Math.random() * colours.length)];   // pick a random colour
+      box.style.backgroundColor = c;
+      box.textContent = "Mouse is OVER the box";
+      out.textContent = "mouseover -> background changed to " + c;
+    });
+
+    box.addEventListener("mouseout", function () {
+      box.style.backgroundColor = "#ffffff";                           // restore
+      box.textContent = "Hover over me!";
+      out.textContent = "mouseout -> background reset to white";
+    });
+  </script>
+</body>
+
+</html>

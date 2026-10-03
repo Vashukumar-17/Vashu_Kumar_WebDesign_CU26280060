@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q18</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" id="task" placeholder="Enter a task" size="30">
+  <button id="add">Add Task</button>
+  <p id="count" style="color:#555"></p>
+  <ul id="list"></ul>
+  <script>
+    const list = document.getElementById("list");
+    const input = document.getElementById("task");
+
+    function updateCount() {
+      const n = list.children.length;
+      document.getElementById("count").textContent = n === 0 ? "No tasks - enjoy your day!" : `${n} task(s) pending`;
+    }
+
+    function addTask() {
+      const text = input.value.trim();
+      if (text === "") { alert("Please enter a task."); return; }
+
+      const li = document.createElement("li");
+      const label = document.createElement("span");
+      label.textContent = text + " ";
+      label.style.cursor = "pointer";
+      label.title = "Click to mark done";
+      label.addEventListener("click", () => {
+        label.style.textDecoration = label.style.textDecoration ? "" : "line-through";
+      });
+
+      const del = document.createElement("button");
+      del.textContent = "Delete";
+      del.addEventListener("click", () => { li.remove(); updateCount(); });  
+
+      li.appendChild(label);
+      li.appendChild(del);
+      list.appendChild(li);
+      input.value = "";
+      updateCount();
+    }
+
+    document.getElementById("add").addEventListener("click", addTask);
+    input.addEventListener("keydown", e => { if (e.key === "Enter") addTask(); });   
+    updateCount();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q16</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Q16: Image Gallery Slider</h2>
+  <style>
+    #frame {
+      width: 100%;
+      max-width: 480px;
+      display: block;
+      border: 2px solid #333;
+      border-radius: 10px
+    }
+  </style>
+  <img id="frame" alt="gallery image">
+  <div id="caption" style="margin:8px 0;font-weight:bold"></div>
+  <button id="prev">&laquo; Previous</button>
+  <button id="next">Next &raquo;</button>
+  <script>
+    function makeSlide(label, colour) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="300">` +
+        `<rect width="480" height="300" fill="${colour}"/>` +
+        `<text x="240" y="165" font-size="48" text-anchor="middle" fill="#fff" font-family="Arial">${label}</text></svg>`;
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    }
+    const images = [
+      { src: makeSlide("Slide 1", "#e63946"), title: "Image 1 - Red" },
+      { src: makeSlide("Slide 2", "#2a9d8f"), title: "Image 2 - Teal" },
+      { src: makeSlide("Slide 3", "#264653"), title: "Image 3 - Navy" },
+      { src: makeSlide("Slide 4", "#f4a261"), title: "Image 4 - Orange" }
+    ];
+
+    let index = 0;
+    function render() {
+      document.getElementById("frame").src = images[index].src;
+      document.getElementById("caption").textContent = `${images[index].title}  (${index + 1} of ${images.length})`;
+    }
+    document.getElementById("next").addEventListener("click", () => { index = (index + 1) % images.length; render(); });
+    document.getElementById("prev").addEventListener("click", () => { index = (index - 1 + images.length) % images.length; render(); });
+    render();
+  </script>
+</body>
+
+</html>

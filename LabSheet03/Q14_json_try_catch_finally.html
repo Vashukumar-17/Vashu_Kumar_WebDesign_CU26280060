@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q14</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.5
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      padding: 7px 10px;
+      margin: 4px 2px;
+      font-size: 1rem
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .out {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f3f5;
+      border-radius: 6px;
+      min-height: 24px;
+      white-space: pre-wrap
+    }
+
+    .ok {
+      color: #0a7a2f
+    }
+
+    .bad {
+      color: #c0392b
+    }
+  </style>
+</head>
+
+<body>
+  <textarea id="json" rows="6" cols="55">{"name": "Asha", "age": 22, "skills": ["HTML", "CSS", "JS"]}</textarea><br>
+  <button id="parse">Parse JSON</button>
+  <div class="out" id="out"></div>
+  <script>
+    document.getElementById("parse").addEventListener("click", function () {
+      const text = document.getElementById("json").value;
+      const out = document.getElementById("out");
+      let log = "";
+      try {
+        log += "try: attempting JSON.parse...\n";
+        const data = JSON.parse(text);                      
+        log += "SUCCESS - parsed object:\n" + JSON.stringify(data, null, 2) + "\n";
+      } catch (error) {
+        log += `catch: ${error.name} - ${error.message}\n`;  
+      } finally {
+        log += "finally: this block always runs (cleanup / done).";
+      }
+      out.textContent = log;
+    });
+  </script>
+</body>
+
+</html>
