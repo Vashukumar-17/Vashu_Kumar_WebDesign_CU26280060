@@ -1,0 +1,14 @@
+# Q10 – Run .py files as CGI scripts anywhere inside this directory
+Options +ExecCGI
+AddHandler cgi-script .py
+
+# Serve index.py when a directory is requested
+DirectoryIndex index.py index.html
+
+# Don't expose helper/config files
+<FilesMatch "^(db_config|cgi_utils)\.py$|\.(sql|ini|log)$">
+    Require all denied
+</FilesMatch>
+
+# Show source of nothing by accident
+Options -Indexes
